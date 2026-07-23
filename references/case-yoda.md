@@ -1,5 +1,11 @@
 # Case: Yoda Seed BP
 
+This case is also the reference composition for the BP Skill Kit:
+
+```text
+bp-outline → bp-deck → bp-polish → targeted bp-deck fixes → bp-polish
+```
+
 ## Context
 
 Yoda is an open desktop workspace for orchestrating AI coding work from intent to
@@ -31,6 +37,9 @@ it made the company look narrower and more replaceable than the product ambition
    proof, and financing was framed as the window to validate retention, payment,
    institutional contracts, and measurable growth.
 
+These decisions belong to `bp-outline`. No visual style was selected until the page
+argument and evidence gaps were explicit.
+
 ## Final 15-slide architecture
 
 1. Integrated Delegation Environment.
@@ -56,6 +65,10 @@ real screenshots, simple sourced charts, and substantial whitespace. The cover w
 reduced to a strong title and horizontal brand treatment. The final page used two
 clearly separated QR codes for product and personal contact, then verified both from
 the rendered slide.
+
+The initial deck came from `bp-deck`; the later cover, logo balance, final-page
+layout, filename, and QR corrections are examples of `bp-polish` returning targeted
+work to `bp-deck` instead of regenerating the entire presentation.
 
 ![Yoda BP cover](../cases/yoda-bp-cover.png)
 

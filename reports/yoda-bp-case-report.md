@@ -2,6 +2,7 @@
 
 Reviewed: 2026-07-23
 Scope: 15-page seed investor deck
+Kit route: `bp-outline → bp-deck → bp-polish → targeted fixes`
 
 ## Verdict
 
