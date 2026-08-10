@@ -1,5 +1,5 @@
 schema: skill-manifest/v1
-id: sgc-bp
+id: lov-bp
 version: 0.2.1
 runtime: skill-runtime/v1
 context:
