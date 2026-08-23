@@ -8,4 +8,3 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) · Versioning: 
 ### Added
 
 - add the shared feedback-classification and approval-invalidation gate used by every LovStudio Skill
-
