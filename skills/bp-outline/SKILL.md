@@ -7,13 +7,15 @@ description: >
   or unsupported. Trigger on "写 BP 大纲", "融资叙事", "梳理商业计划书",
   "先不要做 PPT", "BP outline", "investor narrative", or "pitch deck outline".
 license: MIT
+depends_on:
+  - lov-branding-consistency
 metadata:
   author: contributors
   version: "0.2.0"
   tags: business-plan outline investor narrative evidence market positioning
 ---
 
-# BP Outline
+# BP 蓝图 · BP Blueprint
 
 Build the investment story before choosing a visual style. This skill stops at an
 approved, source-backed outline and does not generate PPTX/PDF.

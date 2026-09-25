@@ -8,13 +8,15 @@ description: >
   Trigger on "做 BP", "完整商业计划书", "融资 PPT 全流程", "BP skill kit",
   "business plan workflow", "pitch deck pipeline", or "continue my BP".
 license: MIT
+depends_on:
+  - lov-branding-consistency
 metadata:
   author: contributors
-  version: "0.3.0"
+  version: "0.3.1"
   tags: skill-kit business-plan pitch-deck fundraising outline slides polish audit
 ---
 
-# BP Skill Kit
+# BP 工坊 · BP Studio
 
 Compose only the stages the user needs. The kit preserves the existing
 `$lov-bp` entrypoint while exposing three focused skills that can be used
