@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.4] - 2026-11-03
+
+### Fixed
+
+- bp-deck 导出核验新增 PDF 文字层门槛：Chrome/Playwright 打印的 BP 复制或搜索会得到「⼿⼯川」这类部首码位（本机 8 份 BP 与讲义共 3,065 处）。导出后运行 `lov-rich-export` 的 `scripts/fix_pdf_tounicode.py`，`radicals left in text 0` 才算通过；bp-deck 的 `depends_on` 加入 `lov-rich-export`
+- 总控视觉门增加「PDF 文字层复制出来是原字：部首码位为 0」
+
 ## [0.3.3] - 2026-11-03
 
 ### Fixed

@@ -8,11 +8,13 @@ description: >
   Trigger on "把 BP 大纲做成 PPT", "选择 BP 风格", "生成融资 PPT", "重做第几页",
   "BP deck", "pitch deck design", "render investor slides", or "export BP PDF".
 license: MIT
+compatibility: Requires Python 3.8+; scripts/check_pptx_editable.py uses the standard library only. The PDF text-layer gate runs lov-rich-export's fix_pdf_tounicode.py, which needs pypdf and fontTools.
 depends_on:
   - lov-branding-consistency
+  - lov-rich-export
 metadata:
   author: contributors
-  version: "0.2.1"
+  version: "0.2.2"
   tags: business-plan pitch-deck pptx pdf style charts branding slides
 ---
 
@@ -60,8 +62,8 @@ business-plan/
 ### Step 0: Resolve input and dependency
 
 Resolve this skill directory as `SKILL_DIR` and locate the user's approved outline.
-Resolve `lov-any2deck` through the active Agent Skills environment; do not
-assume an author's private installation path.
+Resolve `lov-any2deck` and `lov-rich-export` through the active Agent Skills
+environment; do not assume an author's private installation path.
 
 Read `references/user-config.md` and `references/charts-and-visuals.md`.
 
@@ -149,6 +151,17 @@ source render. Quick Look (`qlmanage -t -s 1600`) draws only a file's first slid
 save one single-slide PPTX per page first; elsewhere convert with LibreOffice. Fix any
 page whose PPTX render drifts from the source.
 
+Gate the PDF text layer as well. A PDF printed from the HTML slides by Chrome or
+Playwright looks right but copies and searches as radical code points (「⼿⼯川」
+instead of 「手工川」). Run the fixer shipped by `lov-rich-export` on the delivered PDF:
+
+```bash
+python3 "<lov-rich-export>/scripts/fix_pdf_tounicode.py" ./business-plan/project-bp.pdf
+```
+
+It rewrites only the text layer, so the pages render unchanged. Pass only when it prints
+`radicals left in text 0` (exit 0).
+
 Review every page at presentation size:
 
 - no clipped/overlapping text or broken CJK;
@@ -159,10 +172,12 @@ Review every page at presentation size:
 - product screenshots are genuine and legible;
 - QR codes decode from the final rendered slide;
 - PPTX and PDF page counts match;
+- Chinese text copied from the PDF matches the slides (`radicals left in text 0`);
 - filenames include project, document type, and date/version.
 
 Regenerate only affected slides. Record the result in `deck-manifest.md`, including
-the editable check output and the per-page PPTX round-trip differences.
+the editable check output, the PDF text-layer check output, and the per-page PPTX
+round-trip differences.
 
 ### Step 6: Handoff
 
