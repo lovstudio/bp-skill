@@ -12,7 +12,7 @@ depends_on:
   - lov-branding-consistency
 metadata:
   author: contributors
-  version: "0.2.0"
+  version: "0.2.1"
   tags: business-plan pitch-deck pptx pdf style charts branding slides
 ---
 
@@ -50,7 +50,7 @@ business-plan/
 ├── deck-manifest.md
 ├── 01-slide-cover.png
 ├── ...
-├── project-bp.pptx
+├── project-bp.pptx          # editable: native text, zero full-page pictures
 ├── project-bp.pdf
 └── project-bp-preview.png
 ```
@@ -124,10 +124,32 @@ Prefer:
 Avoid stock-photo filler, decorative card walls, gradients, tiny source text, fake
 dashboards, and unsourced growth curves.
 
+The delivered PPTX must be editable. If the generator returns one picture per page,
+use those pages as the visual target only and rebuild the PPTX from native objects:
+lay each page out as a 16:9 HTML `.slide`, then map the rendered DOM to PowerPoint —
+text blocks to text boxes that keep the browser's line breaks, fills and borders to
+shapes or lines, `<img>` to pictures cropped to their box, SVG charts to pictures at
+their own bounds (for example with pptxgenjs `addText` / `addShape` / `addImage`).
+Never place a whole-page screenshot on a slide.
+
 ### Step 5: Export and inspect
 
-Produce editable PPTX, PDF, all slide images, and one full-deck preview. Review every
-page at presentation size:
+Produce editable PPTX, PDF, all slide images, and one full-deck preview.
+
+Gate the PPTX before any visual review. **The PPTX must be editable: all text is
+native PowerPoint text, and full-page pictures = 0.**
+
+```bash
+python3 "$SKILL_DIR/scripts/check_pptx_editable.py" ./business-plan/project-bp.pptx
+```
+
+The script exits 1 when a slide has no native text or carries a picture covering
+the page. Then render the PPTX itself back to images and compare every page with the
+source render. Quick Look (`qlmanage -t -s 1600`) draws only a file's first slide, so
+save one single-slide PPTX per page first; elsewhere convert with LibreOffice. Fix any
+page whose PPTX render drifts from the source.
+
+Review every page at presentation size:
 
 - no clipped/overlapping text or broken CJK;
 - title/body/source hierarchy is consistent;
@@ -139,7 +161,8 @@ page at presentation size:
 - PPTX and PDF page counts match;
 - filenames include project, document type, and date/version.
 
-Regenerate only affected slides. Record the result in `deck-manifest.md`.
+Regenerate only affected slides. Record the result in `deck-manifest.md`, including
+the editable check output and the per-page PPTX round-trip differences.
 
 ### Step 6: Handoff
 
